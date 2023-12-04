@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter un devoir</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo_formadep.png') }}">
+</head>
+<body>
+    <h1>Ajouter un devoir</h1>
+    <form method="POST" action="/create">
+        <label for="date">Date de rendu :</label>
+        <input type="date" id="date" name="date"><br><br>
+        <label for="Matière">Matière :</label>
+        <input type="text" id="Matière" name="Matière"><br><br>
+        <label for="Description">Description :</label>
+        <input type="text" id="Description" name="Description"><br><br>
+        <input type="submit" value="Créer">
+    </form>
+</body>
+</html>

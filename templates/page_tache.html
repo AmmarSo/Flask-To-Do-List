@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agenda</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo_formadep.png') }}">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .completed {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <h1>Agenda</h1>
+    <table>
+        <tr>
+            <th>Fait</th>
+            <th>Date de rendu</th>
+            <th>Matière</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>
+                <form method="POST" action="/toggle_completion/{{ user.get_id() }}">
+                    <input type="checkbox" name="completion" {% if user.is_completed() %}checked{% endif %} onchange="this.form.submit()">
+                </form>
+            </td>
+            <td {% if user.is_completed() %}class="completed"{% endif %}>{{ user.get_date() }}</td>
+            <td {% if user.is_completed() %}class="completed"{% endif %}>{{ user.get_Matière() }}</td>
+            <td {% if user.is_completed() %}class="completed"{% endif %}>{{ user.get_Description() }}</td>
+            <td>
+                <form method="POST" action="/delete/{{ user.get_id() }}">
+                    <input type="submit" value="Supprimer">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/create">Ajouter un devoir +</a>
+</body>
+</html>
